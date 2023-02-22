@@ -874,6 +874,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  maxSlopeAngle: 30
   orientation: {fileID: 1127841942}
   state: 0
 --- !u!114 &1710876918
