@@ -63,7 +63,11 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = true;
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYscale, playerObj.localScale.z);
+<<<<<<< Updated upstream
         rb.AddForce(Vector3.down*80f, ForceMode.Impulse);
+=======
+        rb.AddForce(Vector3.down * 80f, ForceMode.Impulse);
+>>>>>>> Stashed changes
         slideTimer = maxSlideTime;
     }
 
