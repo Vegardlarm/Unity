@@ -40,8 +40,8 @@ public class Sliding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxisRaw("horizontal");
-        verticalInput = Input.GetAxisRaw("vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         if(Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput!= 0))
             StartSlide();
@@ -70,7 +70,7 @@ public class Sliding : MonoBehaviour
 
     private void SlidingMovement()
     {
-        Vector4 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 
