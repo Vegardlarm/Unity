@@ -862,6 +862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 7
   sprintSpeed: 12
+  slideSpeed: 30
   groundDrag: 5
   jumpForce: 12
   jumpCooldown: 0.25
@@ -870,7 +871,7 @@ MonoBehaviour:
   crouchYScale: 0.5
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 306
+  crouchKey: 9
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -878,6 +879,7 @@ MonoBehaviour:
   maxSlopeAngle: 30
   orientation: {fileID: 1127841942}
   state: 0
+  sliding: 0
 --- !u!114 &1710876918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,7 +910,7 @@ MonoBehaviour:
   playerObj: {fileID: 2023531988}
   maxSlideTime: 0.75
   slideForce: 200
-  slideYscale: 0.5
+  slideYscale: 0.7
   slideKey: 306
 --- !u!1 &1852424202
 GameObject:

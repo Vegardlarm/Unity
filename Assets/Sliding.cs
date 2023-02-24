@@ -26,7 +26,6 @@ public class Sliding : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-    private bool sliding;
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +39,14 @@ public class Sliding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxisRaw("horizontal");
-        verticalInput = Input.GetAxisRaw("vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         if(Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput!= 0))
             StartSlide();
         
 
-        if(Input.GetKeyUp(slideKey) && sliding)
+        if(Input.GetKeyUp(slideKey) && pm.sliding)
           StopSlide();  
         
         
@@ -55,26 +54,35 @@ public class Sliding : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(sliding)
+        if(pm.sliding)
         SlidingMovement();
 
     }
 
     private void StartSlide()
     {
-        sliding = true;
+        pm.sliding = true;
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYscale, playerObj.localScale.z);
-        rb.AddForce(Vector3.down*5f, ForceMode.Impulse);
+        rb.AddForce(Vector3.down*80f, ForceMode.Impulse);
         slideTimer = maxSlideTime;
     }
 
     private void SlidingMovement()
     {
-        Vector4 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+        if(!pm.OnSlope() || rb.velocity.y > -0.1f)
+        {
+            rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 
-        slideTimer -= Time.deltaTime;
+            slideTimer -= Time.deltaTime;
+        }
+        else
+        {
+            rb.AddForce(pm.GetSlopeMoveDirection(inputDirection)* slideForce, ForceMode.Force);
+        }
+
+        
 
         if (slideTimer <= 0)
             StopSlide();
@@ -82,7 +90,7 @@ public class Sliding : MonoBehaviour
     }
     private void StopSlide()
     {
-        sliding = false;
+        pm.sliding = false;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYscale, playerObj.localScale.z);
     }
